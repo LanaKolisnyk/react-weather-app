@@ -1,6 +1,31 @@
-import React from "react";
+/* eslint-disable no-template-curly-in-string */
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
 import "./Weather.css";
-export default function Weather(){
+import axios from "axios";
+export default function Weather(props){
+    
+    const [weatherData, setWeatherData] = useState({ ready: false });
+    function handleResponse(response) {
+console.log(response.data);
+        setWeatherData({
+            ready: true,
+            temperature: response.data.temperature.current,
+            wind: response.data.wind.speed,
+            humidity: response.data.temperature.humidity,
+            feelslike: response.data.temperature.feels_like,
+            city: response.data.city,
+            description: response.data.condition.description,
+            icon: response.data.condition.icon,
+            iconurl:response.data.condition.icon_url
+
+
+        });
+        
+        
+    }
+    if(weatherData.ready) {
+        
     return (
         <div className="Weather">
                           
@@ -15,35 +40,42 @@ export default function Weather(){
             </div>
             </div>
             </form>
-            <h1>Kyiv</h1>
-            <ul>
+            <h1>{weatherData.city}</h1>
+            <ul className="text-capitalize">
                 <li>
                     Friday, 19:00
                 </li>
                 <li>
-                    Mostly cloudy
+                    {weatherData.description}
                 </li>
             </ul>
             <div className="row mt-3">
                 <div className="col-6">
                     <div className="clearfix float-left">
-<img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="Cloudy"></img>
+<img src={weatherData.iconurl} alt={weatherData.icon}></img>
                
-               <span className="temperature">6</span><span className="unit"> °C</span> 
+               <span className="temperature">{Math.round(weatherData.temperature)}</span><span className="unit"> °C</span> 
                
                 </div>
                 </div>
                 <div className="col-6">
                 <ul>
                     <li>
-                Precipitaion: 20%        
+                Feels like: {Math.round(weatherData.feelslike)}  °C       
                     </li>
                     <li>
-Humidity: 71%
+Humidity: {weatherData.humidity}%
                     </li>
-                    <li>Wind: 5 km/h</li>
+                    <li>Wind: {weatherData.wind} km/h</li>
                 </ul></div>
             </div>
         </div>
     );
+}
+    else{
+        const key = "0bf3b313aa0f63at381d644cc6b68o17";
+                let apiUrl = "https://api.shecodes.io/weather/v1/current?query=Kyiv&key=0bf3b313aa0f63at381d644cc6b68o17&units=metric";
+    axios.get(apiUrl).then(handleResponse);
+    return "Loading...";
+    }
 }
