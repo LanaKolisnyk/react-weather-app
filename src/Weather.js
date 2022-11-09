@@ -8,7 +8,7 @@ import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
 
 
-export default function Weather(props){
+export default function Weather(props) {
     
     const [weatherData, setWeatherData] = useState({ ready: false });
     const [city, setCity] = useState(props.defaultCity);
@@ -24,14 +24,15 @@ export default function Weather(props){
             description: response.data.condition.description,
             icon: response.data.condition.icon,
             iconurl:response.data.condition.icon_url,
-            time: new Date(response.data.time * 1000)
+            time: new Date(response.data.time * 1000),
 
 
-        });
+        });}
 
         function search() {
             const key = "0bf3b313aa0f63at381d644cc6b68o17";
-            let apiUrl = "https://api.shecodes.io/weather/v1/current?query=${city}&key=0bf3b313aa0f63at381d644cc6b68o17&units=metric";
+            let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=metric`;
+
 axios.get(apiUrl).then(handleResponse);  
         }
         
@@ -44,7 +45,7 @@ axios.get(apiUrl).then(handleResponse);
 setCity(event.target.value);
      }
 
-    }
+    
     if(weatherData.ready) {
         
     return (
