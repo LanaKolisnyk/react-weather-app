@@ -6,6 +6,7 @@ import "./Weather.css";
 import axios from "axios";
 
 import WeatherInfo from "./WeatherInfo";
+import WeatherForecast from "./WeatherForecast"
 
 
 export default function Weather(props) {
@@ -69,7 +70,7 @@ setCity(event.target.value);
             </form>
             
             <WeatherInfo data={weatherData}/>
-
+<WeatherForecast />
             
         </div>
     );
