@@ -1,10 +1,24 @@
+import axios from "axios";
 import React from "react";
+
 
 import "./WeatherForecast.css";
 
 
 
-export default function WeatherForecast() {
+export default function WeatherForecast(props) {
+
+    function handleResponse(response) {
+        console.log(response.data);
+    }
+    console.log(props);
+    const key = "0bf3b313aa0f63at381d644cc6b68o17";
+    let latitude = props.coordinates.latitude;
+    let longitude = props.coordinates.longitude;
+    let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${latitude}&lon=${longitude}&key=${key}&units=metric`;
+  
+    axios.get(apiUrl).then(handleResponse);
+
     return (
         <div className="WeatherForecast">
        <div className="row">
