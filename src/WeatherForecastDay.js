@@ -1,4 +1,5 @@
 import React from "react";
+import "./WeatherForecastDay.css";
 
 export default function WeatherForecastDay(props) {
 function maxTemperature() {
@@ -23,7 +24,7 @@ function day(){
 return (
     <div>
 <div className="WeatherForecast-day">{day()}</div> 
-<div className="WeatherForecast-icon"><img src={props.data.condition.icon_url} alt={props.data.condition.icon}></img></div>   
+<div className="WeatherForecast-icon"><img className="image-forecast" src={props.data.condition.icon_url} alt={props.data.condition.icon}></img></div>   
 <div className="WeatherForecast-temperature">
    <span className="WeatherForecast-temperature-max">{maxTemperature()}</span>
    <span className="WeatherForecast-temperature-min">{minTemperature()}</span>   
